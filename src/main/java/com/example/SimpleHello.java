@@ -10,8 +10,14 @@
  
 package com.example;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * 
@@ -24,4 +30,20 @@ public class SimpleHello {
 	public String index() {
         return "Greetings from Spring Boot!";
     }
+	
+	@RequestMapping(value = "/redirect"/*, method = RequestMethod.GET*/)
+    public void method(HttpServletResponse httpServletResponse) {
+		String projectUrl = "https://ce30a5ca-9c2a-41f7-9ced-be97360eb282.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token";
+        httpServletResponse.setHeader("Location", projectUrl);
+    }
+	
+	@RequestMapping(
+		      value = "/redirectWithRedirectView"/*, 
+		      method = RequestMethod.GET*/
+		    )
+		    public RedirectView redirectWithUsingRedirectView(RedirectAttributes attributes) {
+		        //attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
+		        //attributes.addAttribute("attribute", "redirectWithRedirectView");
+		        return new RedirectView("https://ce30a5ca-9c2a-41f7-9ced-be97360eb282.predix-uaa.run.aws-usw02-pr.ice.predix.io/login");
+		    }
 }
