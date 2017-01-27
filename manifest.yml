@@ -1,0 +1,10 @@
+---
+applications:
+- name: CloudFoundryFirst
+  memory: 64M
+  instances: 1
+  #buildpack: java_buildpack
+  host: CloudFoundryFirst
+  domain: run.aws-usw02-pr.ice.predix.io
+  services:
+  - predix-asset-service
